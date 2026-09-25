@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+```
+<title>CampusFind</title>
+
+<style>
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background: #f7f9fb;
+        color: #263238;
+        min-height: 100vh;
+    }
+
+    /* =========================
+       NAVBAR
+    ========================= */
+
+    .navbar {
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 18px 7%;
+        border-bottom: 1px solid #e8ecef;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+    }
+
+    .logo {
+        font-size: 24px;
+        font-weight: bold;
+        color: #263f4d;
+    }
+
+    .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+    }
+
+    .nav-links a {
+        text-decoration: none;
+        color: #53636d;
+        font-weight: 600;
+        transition: 0.2s;
+    }
+
+    .nav-links a:hover {
+        color: #287f91;
+    }
+
+    .login-btn {
+        background: #287f91;
+        color: white !important;
+        padding: 10px 18px;
+        border-radius: 7px;
+    }
+
+    .login-btn:hover {
+        background: #216b7a;
+    }
+
+    .welcome {
+        color: #287f91;
+        font-weight: bold;
+    }
+
+    .logout-btn {
+        background: #eef5f7;
+        color: #287f91 !important;
+        padding: 10px 16px;
+        border-radius: 7px;
+    }
+
+    .logout-btn:hover {
+        background: #e1eef1;
+    }
+
+    /* =========================
+       HERO
+    ========================= */
+
+    .hero {
+        text-align: center;
+        padding: 85px 20px 55px;
+    }
+
+    .hero h1 {
+        font-size: 56px;
+        color: #263f4d;
+        margin-bottom: 18px;
+        letter-spacing: -1px;
+    }
+
+    .hero p {
+        max-width: 650px;
+        margin: 0 auto;
+        font-size: 18px;
+        line-height: 1.7;
+        color: #66747c;
+    }
+
+    .welcome-message {
+        margin-top: 22px;
+        color: #287f91;
+        font-size: 17px;
+        font-weight: bold;
+    }
+
+    /* =========================
+       MAIN ACTIONS
+    ========================= */
+
+    .actions {
+        display: flex;
+        justify-content: center;
+        gap: 24px;
+        margin-top: 20px;
+        padding: 0 20px;
+    }
+
+    .action-card {
+        width: 285px;
+        min-height: 165px;
+        padding: 30px 25px;
+        border-radius: 12px;
+        text-decoration: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transition: 0.25s;
+    }
+
+    .action-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(35, 55, 65, 0.12);
+    }
+
+    .find-card {
+        background: #287f91;
+        color: white;
+    }
+
+    .report-card {
+        background: white;
+        color: #263f4d;
+        border: 1px solid #d9e2e6;
+    }
+
+    .report-card:hover {
+        border-color: #a9c8cf;
+    }
+
+    .action-card .icon {
+        font-size: 30px;
+        margin-bottom: 12px;
+    }
+
+    .action-card h2 {
+        font-size: 22px;
+        margin-bottom: 8px;
+    }
+
+    .action-card p {
+        font-size: 14px;
+        text-align: center;
+        line-height: 1.5;
+        opacity: 0.9;
+    }
+
+    /* =========================
+       HOW IT WORKS
+    ========================= */
+
+    .how-section {
+        text-align: center;
+        padding: 65px 20px 65px;
+    }
+
+    .how-section h2 {
+        color: #263f4d;
+        font-size: 28px;
+        margin-bottom: 30px;
+    }
+
+    .steps {
+        display: flex;
+        justify-content: center;
+        gap: 22px;
+        flex-wrap: wrap;
+    }
+
+    .step {
+        background: white;
+        width: 240px;
+        padding: 25px;
+        border-radius: 11px;
+        border: 1px solid #e3e9ec;
+        box-shadow: 0 4px 14px rgba(30, 50, 60, 0.04);
+    }
+
+    .step-number {
+        width: 38px;
+        height: 38px;
+        margin: 0 auto 15px;
+        border-radius: 50%;
+        background: #e8f2f4;
+        color: #287f91;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+    }
+
+    .step h3 {
+        color: #34464f;
+        margin-bottom: 10px;
+    }
+
+    .step p {
+        color: #718087;
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    footer {
+        text-align: center;
+        padding: 25px;
+        color: #8a969c;
+        font-size: 14px;
+    }
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 750px) {
+
+        .navbar {
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .nav-links {
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .hero {
+            padding: 65px 20px 45px;
+        }
+
+        .hero h1 {
+            font-size: 40px;
+        }
+
+        .hero p {
+            font-size: 17px;
+        }
+
+        .actions {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .action-card {
+            width: 90%;
+            max-width: 320px;
+        }
+
+        .step {
+            width: 90%;
+            max-width: 320px;
+        }
+    }
+
+</style>
+```
+
+</head>
+
+<body>
+
+```
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        CampusFind
+    </div>
+
+    <div class="nav-links">
+
+        <a href="{{ url_for('home') }}">
+            Home
+        </a>
+
+        <a href="{{ url_for('items') }}">
+            Find Items
+        </a>
+
+        <a href="{{ url_for('report') }}">
+            Report
+        </a>
+        <a href="{{ url_for('my_reports') }}">
+            My Reports
+        </a>
+
+        <a href="{{ url_for('how_it_works') }}">
+            How It Works
+        </a>
+
+        {% if session.get("user_name") %}
+
+            <span class="welcome">
+                Hi, {{ session.get("user_name") }}
+            </span>
+
+            <a href="{{ url_for('logout') }}" class="logout-btn">
+                Logout
+            </a>
+
+        {% else %}
+
+            <a href="{{ url_for('login') }}" class="login-btn">
+                Login
+            </a>
+
+        {% endif %}
+
+    </div>
+
+</nav>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <h1>
+        CampusFind
+    </h1>
+
+    <p>
+        A simple way for students to report,
+        search for, and reunite lost and found
+        items across campus.
+    </p>
+
+    {% if session.get("user_name") %}
+
+        <div class="welcome-message">
+            Welcome back, {{ session.get("user_name") }}!
+        </div>
+
+    {% endif %}
+
+</section>
+
+
+<!-- MAIN ACTIONS -->
+
+<section class="actions">
+
+    <a
+        href="{{ url_for('items') }}"
+        class="action-card find-card"
+    >
+
+        <div class="icon">
+            🔎
+        </div>
+
+        <h2>
+            Find an Item
+        </h2>
+
+        <p>
+            Search through lost and found reports.
+        </p>
+
+    </a>
+
+
+    <a
+        href="{{ url_for('report') }}"
+        class="action-card report-card"
+    >
+
+        <div class="icon">
+            📝
+        </div>
+
+        <h2>
+            Report an Item
+        </h2>
+
+        <p>
+            Report something you lost or found.
+        </p>
+
+    </a>
+
+</section>
+
+
+<!-- HOW IT WORKS -->
+
+<section class="how-section">
+
+    <h2>
+        How CampusFind Works
+    </h2>
+
+    <div class="steps">
+
+        <div class="step">
+
+            <div class="step-number">
+                1
+            </div>
+
+            <h3>
+                Report
+            </h3>
+
+            <p>
+                Add details about a lost or found item.
+            </p>
+
+        </div>
+
+
+        <div class="step">
+
+            <div class="step-number">
+                2
+            </div>
+
+            <h3>
+                Search
+            </h3>
+
+            <p>
+                Browse reports and search for matching items.
+            </p>
+
+        </div>
+
+
+        <div class="step">
+
+            <div class="step-number">
+                3
+            </div>
+
+            <h3>
+                Reunite
+            </h3>
+
+            <p>
+                Connect the item with its rightful owner.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+    CampusFind · Making campus life a little easier.
+</footer>
+```
+
+</body>
+
+</html>

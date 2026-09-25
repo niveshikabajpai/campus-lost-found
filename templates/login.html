@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login | CampusFind</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+
+            background:
+                radial-gradient(
+                    circle at 85% 15%,
+                    #dceff2,
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 10% 85%,
+                    #edf5f6,
+                    transparent 30%
+                ),
+                #f7f9fb;
+
+            min-height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 25px;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 450px;
+
+            background: rgba(255, 255, 255, 0.96);
+
+            padding: 40px;
+
+            border-radius: 22px;
+
+            box-shadow: 0 20px 55px rgba(35, 60, 70, 0.10);
+
+            border: 1px solid #e1e8eb;
+        }
+
+        .logo {
+            text-align: center;
+
+            font-size: 28px;
+
+            font-weight: bold;
+
+            color: #263f4d;
+
+            margin-bottom: 10px;
+        }
+
+        .purple {
+            color: #287f91;
+        }
+
+        h1 {
+            text-align: center;
+
+            color: #263f4d;
+
+            margin: 15px 0 8px;
+        }
+
+        .subtitle {
+            text-align: center;
+
+            color: #66747c;
+
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+
+            margin-top: 18px;
+            margin-bottom: 7px;
+
+            font-weight: bold;
+
+            color: #34464f;
+        }
+
+        input {
+            width: 100%;
+
+            padding: 14px 16px;
+
+            border: 1px solid #d9e3e7;
+
+            border-radius: 10px;
+
+            background: #fbfcfd;
+
+            color: #263f4d;
+
+            font-size: 15px;
+
+            outline: none;
+
+            transition: 0.2s;
+        }
+
+        input::placeholder {
+            color: #9aa7ad;
+        }
+
+        input:focus {
+            border-color: #287f91;
+
+            box-shadow:
+                0 0 0 3px rgba(40, 127, 145, 0.10);
+        }
+
+        button {
+            width: 100%;
+
+            margin-top: 25px;
+
+            padding: 14px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background: #287f91;
+
+            color: #ffffff;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        button:hover {
+            background: #216b7a;
+
+            transform: translateY(-2px);
+        }
+
+        .error {
+            background: #fceceb;
+
+            color: #c4514d;
+
+            padding: 12px;
+
+            border-radius: 10px;
+
+            text-align: center;
+
+            margin-bottom: 15px;
+
+            font-size: 14px;
+
+            border: 1px solid #f1d2d0;
+        }
+
+        .signup {
+            text-align: center;
+
+            margin-top: 22px;
+
+            color: #66747c;
+        }
+
+        .signup a {
+            color: #216b7a;
+
+            font-weight: bold;
+
+            text-decoration: none;
+        }
+
+        .signup a:hover {
+            color: #287f91;
+        }
+
+        .back {
+            display: block;
+
+            text-align: center;
+
+            margin-top: 20px;
+
+            color: #66747c;
+
+            text-decoration: none;
+
+            font-size: 14px;
+        }
+
+        .back:hover {
+            color: #216b7a;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <div class="card">
+
+        <div class="logo">
+            🎒 Campus<span class="purple">Find</span>
+        </div>
+
+        <h1>Welcome Back</h1>
+
+        <p class="subtitle">
+            Login to continue to CampusFind.
+        </p>
+
+
+        {% if error %}
+
+            <div class="error">
+                ⚠️ {{ error }}
+            </div>
+
+        {% endif %}
+
+
+        <form method="POST">
+
+            <label for="email">
+                Email
+            </label>
+
+            <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Enter your email"
+                required
+            >
+
+
+            <label for="password">
+                Password
+            </label>
+
+            <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Enter your password"
+                required
+            >
+
+
+            <button type="submit">
+                Login
+            </button>
+
+        </form>
+
+
+        <div class="signup">
+
+            Don't have an account?
+
+            <a href="{{ url_for('signup') }}">
+                Sign Up
+            </a>
+
+        </div>
+
+
+        <a class="back" href="{{ url_for('home') }}">
+            ← Back to Home
+        </a>
+
+    </div>
+
+</body>
+
+</html>

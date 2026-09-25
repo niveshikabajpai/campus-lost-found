@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Find Items - Campus Lost & Found</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            Campus Lost & Found
+        </div>
+
+        <div class="nav-links">
+
+            <a href="{{ url_for('home') }}">
+                Home
+            </a>
+
+            <a href="{{ url_for('items') }}"
+               class="active">
+                Find Items
+            </a>
+
+            <a href="{{ url_for('report') }}">
+                Report
+            </a>
+
+            <a href="{{ url_for('my_reports') }}">
+                My Reports
+            </a>
+
+            <a href="{{ url_for('how_it_works') }}">
+                How It Works
+            </a>
+
+            {% if session.get("user_id") %}
+
+                <span class="welcome">
+                    Hi, {{ session.get("user_name") }}
+                </span>
+
+                <a href="{{ url_for('logout') }}"
+                   class="logout-btn">
+                    Logout
+                </a>
+
+            {% else %}
+
+                <a href="{{ url_for('login') }}"
+                   class="login-btn">
+                    Login
+                </a>
+
+            {% endif %}
+
+        </div>
+
+    </nav>
+
+
+    <!-- ITEMS PAGE -->
+
+    <section class="items-page">
+
+        <div class="page-header">
+
+            <h1>
+                Find Lost & Found Items
+            </h1>
+
+            <p>
+                Search for items that have been lost or found around campus.
+            </p>
+
+        </div>
+
+
+        <!-- SEARCH AND FILTERS -->
+
+        <form
+            method="GET"
+            action="{{ url_for('items') }}"
+            class="search-form"
+        >
+
+            <!-- SEARCH -->
+
+            <input
+                type="text"
+                name="search"
+                placeholder="Search item, location or category..."
+                value="{{ search }}"
+            >
+
+
+            <!-- TYPE -->
+
+            <select name="type">
+
+                <option value="">
+                    Lost & Found
+                </option>
+
+                <option
+                    value="Lost"
+                    {% if item_type == "Lost" %}
+                        selected
+                    {% endif %}
+                >
+                    Lost Items
+                </option>
+
+                <option
+                    value="Found"
+                    {% if item_type == "Found" %}
+                        selected
+                    {% endif %}
+                >
+                    Found Items
+                </option>
+
+            </select>
+
+
+            <!-- CATEGORY -->
+
+            <select name="category">
+
+                <option value="">
+                    All Categories
+                </option>
+
+                <option
+                    value="Electronics"
+                    {% if category == "Electronics" %}
+                        selected
+                    {% endif %}
+                >
+                    Electronics
+                </option>
+
+                <option
+                    value="Documents"
+                    {% if category == "Documents" %}
+                        selected
+                    {% endif %}
+                >
+                    Documents
+                </option>
+
+                <option
+                    value="Accessories"
+                    {% if category == "Accessories" %}
+                        selected
+                    {% endif %}
+                >
+                    Accessories
+                </option>
+
+                <option
+                    value="Clothing"
+                    {% if category == "Clothing" %}
+                        selected
+                    {% endif %}
+                >
+                    Clothing
+                </option>
+
+                <option
+                    value="Books"
+                    {% if category == "Books" %}
+                        selected
+                    {% endif %}
+                >
+                    Books
+                </option>
+
+                <option
+                    value="Keys"
+                    {% if category == "Keys" %}
+                        selected
+                    {% endif %}
+                >
+                    Keys
+                </option>
+
+                <option
+                    value="Other"
+                    {% if category == "Other" %}
+                        selected
+                    {% endif %}
+                >
+                    Other
+                </option>
+
+            </select>
+
+
+            <!-- SEARCH BUTTON -->
+
+            <button type="submit">
+                Search
+            </button>
+
+
+            <!-- CLEAR -->
+
+            {% if search or item_type or category %}
+
+                <a
+                    href="{{ url_for('items') }}"
+                    class="clear-btn"
+                >
+                    Clear
+                </a>
+
+            {% endif %}
+
+        </form>
+
+
+        <!-- ACTIVE FILTER MESSAGE -->
+
+        {% if search or item_type or category %}
+
+            <div class="filter-info">
+
+                <strong>Showing results for:</strong>
+
+                {% if search %}
+                    "{{ search }}"
+                {% endif %}
+
+                {% if item_type %}
+                    • {{ item_type }}
+                {% endif %}
+
+                {% if category %}
+                    • {{ category }}
+                {% endif %}
+
+            </div>
+
+        {% endif %}
+
+
+        <!-- ITEMS -->
+
+        {% if items %}
+
+            <div class="items-grid">
+
+                {% for item in items %}
+
+                    <div class="item-card">
+
+                        <!-- IMAGE -->
+
+                        {% if item["image"] %}
+
+                            <div class="item-image">
+
+                                <img
+                                    src="{{ url_for(
+                                        'static',
+                                        filename='uploads/' + item['image']
+                                    ) }}"
+                                    alt="{{ item['item_name'] }}"
+                                >
+
+                            </div>
+
+                        {% else %}
+
+                            <div class="item-image no-image">
+                                📦
+                            </div>
+
+                        {% endif %}
+
+
+                        <!-- CONTENT -->
+
+                        <div class="item-content">
+
+
+                            <!-- TYPE -->
+
+                            {% if item["type"] == "Lost" %}
+
+                                <span class="item-badge lost">
+                                    LOST
+                                </span>
+
+                            {% else %}
+
+                                <span class="item-badge found">
+                                    FOUND
+                                </span>
+
+                            {% endif %}
+
+
+                            <!-- NAME -->
+
+                            <h2>
+                                {{ item["item_name"] }}
+                            </h2>
+
+
+                            <!-- CATEGORY -->
+
+                            {% if item["category"] %}
+
+                                <p>
+                                    🏷️ {{ item["category"] }}
+                                </p>
+
+                            {% endif %}
+
+
+                            <!-- LOCATION -->
+
+                            <p>
+                                📍 {{ item["location"] }}
+                            </p>
+
+
+                            <!-- DATE -->
+
+                            <p>
+                                📅 {{ item["date"] }}
+                            </p>
+
+
+                            <!-- STATUS -->
+
+                            {% if item["status"] == "Resolved" %}
+
+                                <span class="status resolved">
+                                    ✓ Resolved
+                                </span>
+
+                            {% else %}
+
+                                <span class="status active">
+                                    ● Active
+                                </span>
+
+                            {% endif %}
+
+
+                            <!-- DETAILS -->
+
+                            <a
+                                href="{{ url_for(
+                                    'item_details',
+                                    item_id=item['id']
+                                ) }}"
+                                class="view-btn"
+                            >
+                                View Details →
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+
+        {% else %}
+
+
+            <!-- NO RESULTS -->
+
+            <div class="empty-state">
+
+                <div class="empty-icon">
+                    🔍
+                </div>
+
+                <h2>
+                    No matching items found
+                </h2>
+
+                <p>
+                    Try changing your search or filters.
+                </p>
+
+                <a
+                    href="{{ url_for('items') }}"
+                    class="primary-btn"
+                >
+                    View All Items
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <p>
+            Campus Lost & Found
+        </p>
+
+    </footer>
+
+</body>
+
+</html>
