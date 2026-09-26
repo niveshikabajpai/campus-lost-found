@@ -810,13 +810,17 @@ def delete_item(item_id):
 
 
 # -----------------------------
+# INITIALIZE DATABASE
+# -----------------------------
+
+init_db()
+update_database()
+
+
+# -----------------------------
 # RUN APPLICATION
 # -----------------------------
 
 if __name__ == "__main__":
-
-    init_db()
-
-    update_database()
 
     app.run(debug=True)
