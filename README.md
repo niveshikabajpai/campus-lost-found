@@ -42,16 +42,20 @@ campus-lost-found/
     ├── items.html
     ├── report.html
     └── ...
+
 ## 📸 Screenshots
 
 ### Home Page
 ![CampusFind Home Page](screenshots/home.png)
 
+
 ### Find Items
 ![Find Items Page](screenshots/find-items.png)
 
+
 ### Report an Item
 ![Report Item Page](screenshots/reports.png)
+
 
 ### My Reports
 ![My Reports Page](screenshots/my-reports.png)
